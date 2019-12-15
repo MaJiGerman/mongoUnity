@@ -34,8 +34,13 @@ public class Jugador : MonoBehaviour {
         }
 		if (Input.GetKeyUp(KeyCode.F))
         {
-			Debug.Log("Cambiar estado Usuario");
-			db.ActualizarUsuario("UNITY","MODIFICADO");
+			Debug.Log("Aniadir elemento a lista Usuario");
+			db.ActualizarUsuario("UNITY","ANADIDO");
+        }
+		if (Input.GetKeyUp(KeyCode.G))
+        {
+			Debug.Log("Borrar elemento a lista Usuario");
+			db.BorrarListaUsuario("UNITY","BORRADO");
         }
 		if (Input.GetKeyUp(KeyCode.D))
         {

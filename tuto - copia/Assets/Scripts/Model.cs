@@ -1,6 +1,7 @@
 ﻿using MongoDB.Bson;
 using System;
 using System.Collections.Generic;
+
 public class Model 
 {
 	public ObjectId _id;
@@ -8,13 +9,15 @@ public class Model
 	public string nombre { set; get; }
 	public string estado { set; get; }
 	public string color { set; get; }
-
-	public List<string> lista { set; get; }
-
+	public List<UserData> datos { set; get; }
 	public Model()
 	{
-		lista = new List<string>();
-		lista.Add("primero");
+		datos = new List<UserData>();
+		UserData u = new UserData();
+		u.nombre = "GERMAN";
+		u.apellido = "MATILLA";
+		u.direccion = "DIRECCION CASA";
+		datos.Add(u);
 	}
 
 	public override string ToString(){
@@ -23,12 +26,12 @@ public class Model
 		aux += "nombre: " + nombre + Environment.NewLine;
 		aux += "estado: " + estado + Environment.NewLine;
 		aux += "color: " + color + Environment.NewLine;
-		aux += "lista: " + Environment.NewLine;
-		if(lista != null)
+		aux += "datos: " + Environment.NewLine;
+		if(datos != null)
 		{
-			foreach(string s in lista)
+			foreach(UserData d in datos)
 			{
-				aux += s + Environment.NewLine;
+				aux += d.ToString();
 			}
 		}
 		

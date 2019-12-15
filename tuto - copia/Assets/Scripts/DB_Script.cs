@@ -66,12 +66,27 @@ public class DB_Script
 
 	public async void ActualizarUsuario(string inputNombre, string newEstado)
 	{
-		var result = await usuarios.FindOneAndUpdateAsync(
+		UserData u = new UserData();
+		u.nombre = "GERMAN";
+		u.apellido = "MATILLA";
+		u.direccion = "DIRECCION CASA";
+
+		var result2 = await usuarios.FindOneAndUpdateAsync(
+						Builders<Model>.Filter.Eq("nombre", inputNombre),
+						Builders<Model>.Update.Set("estado", newEstado)
+											.Push("datos", u)
+		);
+		Debug.Log("Elemento Anadido");
+	}
+	
+	public async void BorrarListaUsuario(string inputNombre, string newEstado)
+	{
+		var result2 = await usuarios.FindOneAndUpdateAsync(
                       Builders<Model>.Filter.Eq("nombre", inputNombre),
                       Builders<Model>.Update.Set("estado", newEstado)
-					  						.Set("color", "AZUL")
-											.Push("lista", "aniadido")
-                      );
+											.PopLast("datos")
+                      );	
+		Debug.Log("Elemento Eliminado");
 	}
 
 	public async void DeleteUsuario(string inputNombre)
@@ -83,7 +98,7 @@ public class DB_Script
                          	Sort = Builders<Model>.Sort.Descending("nombre")
                          }
                          );
-
+		Debug.Log("Usuario Eliminado");
 	}
 	#endregion
 }
