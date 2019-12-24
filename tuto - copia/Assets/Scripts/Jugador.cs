@@ -7,10 +7,15 @@ public class Jugador : MonoBehaviour {
 	
 	// Variables Globales
 	private DB_Script db;
-	
+	private string CodSer;
  	
 	// Use this for initialization
 	void Start () {
+		System.Random random = new System.Random();
+		int randomNumber = random.Next(0, 1000);
+		CodSer = "UNITY_"+randomNumber;
+		Debug.Log("CODSER: "+CodSer);
+
 		db = new DB_Script();
 		db.Init();
 
@@ -25,27 +30,27 @@ public class Jugador : MonoBehaviour {
 		if (Input.GetKeyUp(KeyCode.A))
         {
 			Debug.Log("Creando Nuevo Usuario");
-			db.InsertarUsuario("UNITY");
+			db.InsertarUsuario(CodSer);
         }
 		if (Input.GetKeyUp(KeyCode.S))
         {
 			Debug.Log("Buscando Usuario");
-			db.BuscarUsuario("UNITY");
+			db.BuscarUsuario(CodSer);
         }
 		if (Input.GetKeyUp(KeyCode.F))
         {
 			Debug.Log("Aniadir elemento a lista Usuario");
-			db.ActualizarUsuario("UNITY","ANADIDO");
+			db.ActualizarUsuario(CodSer,"ANADIDO");
         }
 		if (Input.GetKeyUp(KeyCode.G))
         {
 			Debug.Log("Borrar elemento a lista Usuario");
-			db.BorrarListaUsuario("UNITY","BORRADO");
+			db.BorrarListaUsuario(CodSer,"BORRADO");
         }
 		if (Input.GetKeyUp(KeyCode.D))
         {
 			Debug.Log("Borrando Usuario");
-			db.DeleteUsuario("UNITY");
+			db.DeleteUsuario(CodSer);
         }
 	}
 }

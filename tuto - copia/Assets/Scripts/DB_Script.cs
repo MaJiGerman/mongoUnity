@@ -67,9 +67,6 @@ public class DB_Script
 	public async void ActualizarUsuario(string inputNombre, string newEstado)
 	{
 		UserData u = new UserData();
-		u.nombre = "GERMAN";
-		u.apellido = "MATILLA";
-		u.direccion = "DIRECCION CASA";
 
 		var result2 = await usuarios.FindOneAndUpdateAsync(
 						Builders<Model>.Filter.Eq("nombre", inputNombre),

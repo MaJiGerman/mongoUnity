@@ -14,9 +14,6 @@ public class Model
 	{
 		datos = new List<UserData>();
 		UserData u = new UserData();
-		u.nombre = "GERMAN";
-		u.apellido = "MATILLA";
-		u.direccion = "DIRECCION CASA";
 		datos.Add(u);
 	}
 
@@ -32,6 +29,7 @@ public class Model
 			foreach(UserData d in datos)
 			{
 				aux += d.ToString();
+				aux += Environment.NewLine;
 			}
 		}
 		
