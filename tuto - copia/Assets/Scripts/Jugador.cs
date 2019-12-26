@@ -7,14 +7,18 @@ public class Jugador : MonoBehaviour {
 	
 	// Variables Globales
 	private DB_Script db;
-	private string CodSer;
- 	
+	public string CodSer;
+	public bool activo;
+ 	public float speed = 1.5f;
+	private int HP;
 	// Use this for initialization
 	void Start () {
 		System.Random random = new System.Random();
 		int randomNumber = random.Next(0, 1000);
 		CodSer = "UNITY_"+randomNumber;
-		Debug.Log("CODSER: "+CodSer);
+		activo = true;
+		HP = 1;
+		Debug.Log("CODSER: "+CodSer+" esta ahora activo");
 
 		db = new DB_Script();
 		db.Init();
@@ -27,30 +31,64 @@ public class Jugador : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		if (Input.GetKeyUp(KeyCode.A))
+		if (activo && Input.GetKeyUp(KeyCode.A))
         {
 			Debug.Log("Creando Nuevo Usuario");
 			db.InsertarUsuario(CodSer);
         }
-		if (Input.GetKeyUp(KeyCode.S))
+		if (activo && Input.GetKeyUp(KeyCode.S))
         {
 			Debug.Log("Buscando Usuario");
 			db.BuscarUsuario(CodSer);
         }
-		if (Input.GetKeyUp(KeyCode.F))
+		if (activo && Input.GetKeyUp(KeyCode.F))
         {
 			Debug.Log("Aniadir elemento a lista Usuario");
 			db.ActualizarUsuario(CodSer,"ANADIDO");
         }
-		if (Input.GetKeyUp(KeyCode.G))
+		if (activo && Input.GetKeyUp(KeyCode.G))
         {
 			Debug.Log("Borrar elemento a lista Usuario");
 			db.BorrarListaUsuario(CodSer,"BORRADO");
         }
-		if (Input.GetKeyUp(KeyCode.D))
+		if (activo && Input.GetKeyUp(KeyCode.D))
         {
 			Debug.Log("Borrando Usuario");
 			db.DeleteUsuario(CodSer);
         }
+		if (activo && Input.GetKeyUp("space"))
+        {
+			activo = false;
+			Debug.Log("CODSER: "+CodSer+" going DARK");
+        }
+		//MOVIMIENTO
+		if (activo && Input.GetKey(KeyCode.LeftArrow))
+     	{
+         	transform.position += Vector3.left * speed * Time.deltaTime;
+     	}
+     	if (activo && Input.GetKey(KeyCode.RightArrow))
+     	{
+         	transform.position += Vector3.right * speed * Time.deltaTime;
+     	}
+     	if (activo && Input.GetKey(KeyCode.UpArrow))
+     	{
+         	transform.position += Vector3.up * speed * Time.deltaTime;
+     	}
+     	if (activo && Input.GetKey(KeyCode.DownArrow))
+     	{
+         	transform.position += Vector3.down * speed * Time.deltaTime;
+     	}
+		//COMPROBAR VIDA
+		if (HP<=0)
+		{
+			Debug.Log("AUTODESTROYENDOSE");
+		}
+	}
+	public void activarJugador(bool activar)
+	{
+		if(activar)
+			this.activo=true;
+		else
+			this.activo=false;
 	}
 }

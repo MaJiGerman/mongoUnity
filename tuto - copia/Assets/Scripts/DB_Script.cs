@@ -97,5 +97,23 @@ public class DB_Script
                          );
 		Debug.Log("Usuario Eliminado");
 	}
+
+	//TODO
+	public int GetDataLenght(string inputNombre)
+	{
+		
+		aux = 0;
+		var query =
+    	usuarios.AsQueryable<Model>()
+    	.Where(e => e.nombre == inputNombre);
+
+		foreach(Model m in query)
+		{
+			aux=m.datos.Length;
+			Debug.Log("Datos: " + aux);
+		}
+
+		return aux;
+	}
 	#endregion
 }
