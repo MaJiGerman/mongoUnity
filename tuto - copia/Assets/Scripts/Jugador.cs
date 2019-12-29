@@ -2,7 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Jugador : MonoBehaviour {
+public class Jugador : MonoBehaviour 
+{
 
 	
 	// Variables Globales
@@ -12,7 +13,8 @@ public class Jugador : MonoBehaviour {
  	public float speed = 1.5f;
 	private int HP;
 	// Use this for initialization
-	void Start () {
+	void Start () 
+	{
 		System.Random random = new System.Random();
 		int randomNumber = random.Next(0, 1000);
 		CodSer = "UNITY_"+randomNumber;
@@ -23,14 +25,13 @@ public class Jugador : MonoBehaviour {
 		db = new DB_Script();
 		db.Init();
 
-		//Model aux = db.BuscarUsuario("lul");
-		//Debug.Log(aux.nombre);
-		//Debug.Log("Creando Nuevo Usuario");
-		//db.InsertarUsuario("UNITY");
+		Debug.Log("Creando Nuevo Usuario");
+		db.InsertarUsuario(CodSer);
 	}
 	
 	// Update is called once per frame
-	void Update () {
+	void Update () 
+	{
 		if (activo && Input.GetKeyUp(KeyCode.A))
         {
 			Debug.Log("Creando Nuevo Usuario");
@@ -45,11 +46,13 @@ public class Jugador : MonoBehaviour {
         {
 			Debug.Log("Aniadir elemento a lista Usuario");
 			db.ActualizarUsuario(CodSer,"ANADIDO");
+			HP = db.GetDataLenght(CodSer);
         }
 		if (activo && Input.GetKeyUp(KeyCode.G))
         {
 			Debug.Log("Borrar elemento a lista Usuario");
 			db.BorrarListaUsuario(CodSer,"BORRADO");
+			HP = db.GetDataLenght(CodSer);
         }
 		if (activo && Input.GetKeyUp(KeyCode.D))
         {
@@ -65,8 +68,19 @@ public class Jugador : MonoBehaviour {
 		if (HP<=0)
 		{
 			Debug.Log("AUTODESTROYENDOSE");
+			Destroy(gameObject);
 		}
 	}
+	void OnCollisionEnter(Collision col)
+    {
+		if(col.gameObject.layer == 9)
+		{
+        	Debug.Log("Borrar elemento a lista Usuario");
+			db.BorrarListaUsuario(CodSer,"BORRADO");
+			HP = db.GetDataLenght(CodSer);
+			Debug.Log("HP: "+HP);
+		}
+    }
 	public void activarJugador(bool activar)
 	{
 		if(activar)
