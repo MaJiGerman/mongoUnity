@@ -61,23 +61,6 @@ public class Jugador : MonoBehaviour {
 			activo = false;
 			Debug.Log("CODSER: "+CodSer+" going DARK");
         }
-		//MOVIMIENTO
-		if (activo && Input.GetKey(KeyCode.LeftArrow))
-     	{
-         	transform.position += Vector3.left * speed * Time.deltaTime;
-     	}
-     	if (activo && Input.GetKey(KeyCode.RightArrow))
-     	{
-         	transform.position += Vector3.right * speed * Time.deltaTime;
-     	}
-     	if (activo && Input.GetKey(KeyCode.UpArrow))
-     	{
-         	transform.position += Vector3.up * speed * Time.deltaTime;
-     	}
-     	if (activo && Input.GetKey(KeyCode.DownArrow))
-     	{
-         	transform.position += Vector3.down * speed * Time.deltaTime;
-     	}
 		//COMPROBAR VIDA
 		if (HP<=0)
 		{
