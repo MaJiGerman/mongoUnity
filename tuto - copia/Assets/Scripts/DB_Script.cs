@@ -73,6 +73,7 @@ public class DB_Script
 						Builders<Model>.Update.Set("estado", newEstado)
 											.Push("datos", u)
 		);
+		this.GetDataLenght(inputNombre);
 		Debug.Log("Elemento Anadido");
 	}
 	
@@ -98,22 +99,23 @@ public class DB_Script
 		Debug.Log("Usuario Eliminado");
 	}
 
-	//TODO
 	public int GetDataLenght(string inputNombre)
 	{
 		
-		aux = 0;
+		List<UserData> aux;
+		int tamano = 0;
 		var query =
     	usuarios.AsQueryable<Model>()
     	.Where(e => e.nombre == inputNombre);
 
 		foreach(Model m in query)
 		{
-			aux=m.datos.Length;
-			Debug.Log("Datos: " + aux);
+			aux=m.datos;
+			tamano = aux.Count;
+			Debug.Log("Datos: " + tamano);
 		}
 
-		return aux;
+		return tamano;
 	}
 	#endregion
 }

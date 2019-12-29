@@ -57,6 +57,7 @@
      <Compile Include="Assets\Scripts\Jugador.cs" />
      <Compile Include="Assets\Scripts\master.cs" />
      <Compile Include="Assets\Scripts\Model.cs" />
+     <Compile Include="Assets\Scripts\PlayerMovement.cs" />
      <Compile Include="Assets\Scripts\UserData.cs" />
  <Reference Include="Unity.Timeline.Editor">
  <HintPath>C:/Users/German/Desktop/mongoUnity/tuto - copia/Library/ScriptAssemblies/Unity.Timeline.Editor.dll</HintPath>
