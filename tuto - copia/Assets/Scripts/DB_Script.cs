@@ -77,6 +77,16 @@ public class DB_Script
 		Debug.Log("Elemento Anadido");
 	}
 	
+
+	public async void ActualizarColorUsuario(string inputNombre, string newColor)
+	{
+		var result2 = await usuarios.FindOneAndUpdateAsync(
+						Builders<Model>.Filter.Eq("nombre", inputNombre),
+						Builders<Model>.Update.Set("color", newColor)
+		);
+		Debug.Log("Color actualizado a "+newColor);
+	}
+	
 	public async void BorrarListaUsuario(string inputNombre, string newEstado)
 	{
 		var result2 = await usuarios.FindOneAndUpdateAsync(

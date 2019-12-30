@@ -9,12 +9,13 @@ public class Jugador : MonoBehaviour
 	// Variables Globales
 	private DB_Script db;
 	public string CodSer;
+	public string color;
 	public bool activo;
- 	public float speed = 1.5f;
 	private int HP;
 	// Use this for initialization
 	void Start () 
 	{
+		color = LayerMask.LayerToName(this.gameObject.layer);
 		System.Random random = new System.Random();
 		int randomNumber = random.Next(0, 1000);
 		CodSer = "UNITY_"+randomNumber;
@@ -27,6 +28,7 @@ public class Jugador : MonoBehaviour
 
 		Debug.Log("Creando Nuevo Usuario");
 		db.InsertarUsuario(CodSer);
+		db.ActualizarColorUsuario(CodSer, color);
 	}
 	
 	// Update is called once per frame
@@ -68,12 +70,15 @@ public class Jugador : MonoBehaviour
 		if (HP<=0)
 		{
 			Debug.Log("AUTODESTROYENDOSE");
+			db.DeleteUsuario(CodSer);
 			Destroy(gameObject);
 		}
 	}
 	void OnCollisionEnter(Collision col)
     {
-		if(col.gameObject.layer == 9)
+		if(this.gameObject.layer == 10 && col.gameObject.layer == 9
+			|| this.gameObject.layer == 9 && col.gameObject.layer == 11 
+			|| this.gameObject.layer == 11 && col.gameObject.layer == 10)
 		{
         	Debug.Log("Borrar elemento a lista Usuario");
 			db.BorrarListaUsuario(CodSer,"BORRADO");
