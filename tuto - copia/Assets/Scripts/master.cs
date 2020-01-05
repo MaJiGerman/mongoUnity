@@ -15,7 +15,7 @@ public class master : MonoBehaviour
 	{
 		if (Input.GetKeyUp("space"))
         {
-            Debug.Log("Instanciando nuevo prefab");
+            //Debug.Log("Instanciando nuevo prefab");
 			var capsula = (GameObject)Instantiate(prefab, transform.position, transform.rotation);
 			generatedObjects.Add(capsula);
 			var capsula2 = (GameObject)Instantiate(prefab2, transform.position + new Vector3(5, 0, -5), transform.rotation);

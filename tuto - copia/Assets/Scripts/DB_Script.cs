@@ -20,7 +20,7 @@ public class DB_Script
 		database = client.GetDatabase(DB_NAME);
 
 		usuarios = database.GetCollection<Model>(COLECTION_NAME);
-		Debug.Log("Conectado a " + DB_NAME);
+		//Debug.Log("Conectado a " + DB_NAME);
 	}
 	public void Shutdown()
 	{
@@ -37,7 +37,7 @@ public class DB_Script
 		newUser.color = "BLANCO";
 
 		usuarios.InsertOne(newUser);
-		Debug.Log("Nuevo Usuario Creado");
+		//Debug.Log("Nuevo Usuario Creado");
 		return true;
 	}
 	#endregion
@@ -74,7 +74,7 @@ public class DB_Script
 											.Push("datos", u)
 		);
 		this.GetDataLenght(inputNombre);
-		Debug.Log("Elemento Anadido");
+		//Debug.Log("Elemento Anadido");
 	}
 	
 
@@ -84,7 +84,20 @@ public class DB_Script
 						Builders<Model>.Filter.Eq("nombre", inputNombre),
 						Builders<Model>.Update.Set("color", newColor)
 		);
-		Debug.Log("Color actualizado a "+newColor);
+		//Debug.Log("Color actualizado a "+newColor);
+	}
+	
+	public async void AniadirListaUsuario(string inputNombre, string newEstado)
+	{
+		UserData u = new UserData();
+
+		var result2 = await usuarios.FindOneAndUpdateAsync(
+						Builders<Model>.Filter.Eq("nombre", inputNombre),
+						Builders<Model>.Update.Set("estado", newEstado)
+											.Push("datos", u)
+		);
+		this.GetDataLenght(inputNombre);
+		//Debug.Log("Elemento Anadido");
 	}
 	
 	public async void BorrarListaUsuario(string inputNombre, string newEstado)
@@ -94,7 +107,7 @@ public class DB_Script
                       Builders<Model>.Update.Set("estado", newEstado)
 											.PopLast("datos")
                       );	
-		Debug.Log("Elemento Eliminado");
+		//Debug.Log("Elemento Eliminado");
 	}
 
 	public async void DeleteUsuario(string inputNombre)
@@ -106,7 +119,7 @@ public class DB_Script
                          	Sort = Builders<Model>.Sort.Descending("nombre")
                          }
                          );
-		Debug.Log("Usuario Eliminado");
+		//Debug.Log("Usuario Eliminado");
 	}
 
 	public int GetDataLenght(string inputNombre)
@@ -122,7 +135,7 @@ public class DB_Script
 		{
 			aux=m.datos;
 			tamano = aux.Count;
-			Debug.Log("Datos: " + tamano);
+			//Debug.Log("Datos: " + tamano);
 		}
 
 		return tamano;

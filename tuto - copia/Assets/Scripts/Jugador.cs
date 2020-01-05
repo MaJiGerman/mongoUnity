@@ -17,16 +17,16 @@ public class Jugador : MonoBehaviour
 	{
 		color = LayerMask.LayerToName(this.gameObject.layer);
 		System.Random random = new System.Random();
-		int randomNumber = random.Next(0, 1000);
+		int randomNumber = random.Next(0, 2048);
 		CodSer = "UNITY_"+randomNumber;
 		activo = true;
 		HP = 1;
-		Debug.Log("CODSER: "+CodSer+" esta ahora activo");
+		//Debug.Log("CODSER: "+CodSer+" esta ahora activo");
 
 		db = new DB_Script();
 		db.Init();
 
-		Debug.Log("Creando Nuevo Usuario");
+		//Debug.Log("Creando Nuevo Usuario");
 		db.InsertarUsuario(CodSer);
 		db.ActualizarColorUsuario(CodSer, color);
 	}
@@ -36,29 +36,29 @@ public class Jugador : MonoBehaviour
 	{
 		if (activo && Input.GetKeyUp(KeyCode.A))
         {
-			Debug.Log("Creando Nuevo Usuario");
+			//Debug.Log("Creando Nuevo Usuario");
 			db.InsertarUsuario(CodSer);
         }
 		if (activo && Input.GetKeyUp(KeyCode.S))
         {
-			Debug.Log("Buscando Usuario");
+			//Debug.Log("Buscando Usuario");
 			db.BuscarUsuario(CodSer);
         }
 		if (activo && Input.GetKeyUp(KeyCode.F))
         {
-			Debug.Log("Aniadir elemento a lista Usuario");
+			//Debug.Log("Aniadir elemento a lista Usuario");
 			db.ActualizarUsuario(CodSer,"ANADIDO");
 			HP = db.GetDataLenght(CodSer);
         }
 		if (activo && Input.GetKeyUp(KeyCode.G))
         {
-			Debug.Log("Borrar elemento a lista Usuario");
+			//Debug.Log("Borrar elemento a lista Usuario");
 			db.BorrarListaUsuario(CodSer,"BORRADO");
 			HP = db.GetDataLenght(CodSer);
         }
 		if (activo && Input.GetKeyUp(KeyCode.D))
         {
-			Debug.Log("Borrando Usuario");
+			//Debug.Log("Borrando Usuario");
 			db.DeleteUsuario(CodSer);
         }
 		if (activo && Input.GetKeyUp("space"))
@@ -69,7 +69,7 @@ public class Jugador : MonoBehaviour
 		//COMPROBAR VIDA
 		if (HP<=0)
 		{
-			Debug.Log("AUTODESTROYENDOSE");
+			//Debug.Log("AUTODESTROYENDOSE");
 			db.DeleteUsuario(CodSer);
 			Destroy(gameObject);
 		}
@@ -80,10 +80,16 @@ public class Jugador : MonoBehaviour
 			|| this.gameObject.layer == 9 && col.gameObject.layer == 11 
 			|| this.gameObject.layer == 11 && col.gameObject.layer == 10)
 		{
-        	Debug.Log("Borrar elemento a lista Usuario");
+			if(col.gameObject.GetComponent<Jugador>() != null)
+			{
+				float size = 0.15f;
+				col.gameObject.transform.localScale += new Vector3(size, size, size);
+				col.gameObject.GetComponent<Jugador>().db.AniadirListaUsuario(col.gameObject.GetComponent<Jugador>().CodSer,"ANIADIDO");
+				//Debug.Log("Chocado con " + col.gameObject.GetComponent<Jugador>().db.GetDataLenght(col.gameObject.GetComponent<Jugador>().CodSer));
+			}
 			db.BorrarListaUsuario(CodSer,"BORRADO");
 			HP = db.GetDataLenght(CodSer);
-			Debug.Log("HP: "+HP);
+			//Debug.Log("HP: "+HP);
 		}
     }
 	public void activarJugador(bool activar)
