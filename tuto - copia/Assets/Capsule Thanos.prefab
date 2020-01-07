@@ -17,7 +17,7 @@ GameObject:
   - component: {fileID: -4341961755587555254}
   m_Layer: 10
   m_Name: Capsule Thanos
-  m_TagString: Untagged
+  m_TagString: PurplePlayer
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

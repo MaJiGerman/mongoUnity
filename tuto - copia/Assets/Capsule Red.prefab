@@ -17,6 +17,11 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 9
       objectReference: {fileID: 0}
+    - target: {fileID: 3114813141818825790, guid: 31e134c16895bd24e836060bcee47676,
+        type: 3}
+      propertyPath: m_TagString
+      value: RedPlayer
+      objectReference: {fileID: 0}
     - target: {fileID: 3114076206637501406, guid: 31e134c16895bd24e836060bcee47676,
         type: 3}
       propertyPath: m_LocalPosition.x

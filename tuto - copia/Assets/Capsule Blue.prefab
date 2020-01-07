@@ -15,6 +15,10 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 11
       objectReference: {fileID: 0}
+    - target: {fileID: 1027046841944618, guid: 54680b50116a8634dae8104f36004b9f, type: 3}
+      propertyPath: m_TagString
+      value: BluePlayer
+      objectReference: {fileID: 0}
     - target: {fileID: 4160366341070282, guid: 54680b50116a8634dae8104f36004b9f, type: 3}
       propertyPath: m_LocalPosition.x
       value: -5
