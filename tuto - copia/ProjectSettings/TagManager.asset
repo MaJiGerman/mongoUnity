@@ -7,6 +7,7 @@ TagManager:
   - BluePlayer
   - RedPlayer
   - PurplePlayer
+  - Walls
   layers:
   - Default
   - TransparentFX

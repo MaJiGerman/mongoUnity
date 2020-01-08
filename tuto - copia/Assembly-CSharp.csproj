@@ -58,6 +58,7 @@
      <Compile Include="Assets\Scripts\master.cs" />
      <Compile Include="Assets\Scripts\Model.cs" />
      <Compile Include="Assets\Scripts\PlayerMovement.cs" />
+     <Compile Include="Assets\Scripts\randomMovement.cs" />
      <Compile Include="Assets\Scripts\Spawner.cs" />
      <Compile Include="Assets\Scripts\UserData.cs" />
  <Reference Include="Unity.Timeline.Editor">

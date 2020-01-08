@@ -15,6 +15,7 @@ GameObject:
   - component: {fileID: 114250575916121384}
   - component: {fileID: -4957919918560858360}
   - component: {fileID: -4341961755587555254}
+  - component: {fileID: 793682041598677740}
   m_Layer: 10
   m_Name: Capsule Thanos
   m_TagString: PurplePlayer
@@ -140,3 +141,23 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 5
+--- !u!114 &793682041598677740
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1027046841944618}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d4357585b0fbaef428ddba58d975feab, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  minSpeed: 1
+  maxSpeed: 1.5
+  collisionTags:
+  - RedPlayer
+  - BluePlayer
+  - PurplePlayer
+  - Walls
+  reWanderTime: 1
