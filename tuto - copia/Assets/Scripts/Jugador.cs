@@ -12,6 +12,8 @@ public class Jugador : MonoBehaviour
 	public string color;
 	public bool activo;
 	private int HP;
+	private float size;
+
 	// Use this for initialization
 	void Start () 
 	{
@@ -19,8 +21,9 @@ public class Jugador : MonoBehaviour
 		System.Random random = new System.Random();
 		int randomNumber = random.Next(0, 2048);
 		CodSer = "UNITY_"+randomNumber;
-		activo = true;
-		HP = 1;
+		activo = false;
+		HP = 10;
+		size = 0.05f;
 		//Debug.Log("CODSER: "+CodSer+" esta ahora activo");
 
 		db = new DB_Script();
@@ -29,6 +32,11 @@ public class Jugador : MonoBehaviour
 		//Debug.Log("Creando Nuevo Usuario");
 		db.InsertarUsuario(CodSer);
 		db.ActualizarColorUsuario(CodSer, color);
+		for (int i=1;i<HP;i++)
+		{
+			db.AniadirListaUsuario(CodSer, "CREADO");
+		}
+		//Debug.Log(db.GetDataLenght(CodSer));
 	}
 	
 	// Update is called once per frame
@@ -80,16 +88,25 @@ public class Jugador : MonoBehaviour
 			|| this.gameObject.layer == 9 && col.gameObject.layer == 11 
 			|| this.gameObject.layer == 11 && col.gameObject.layer == 10)
 		{
-			if(col.gameObject.GetComponent<Jugador>() != null)
-			{
-				float size = 0.15f;
-				col.gameObject.transform.localScale += new Vector3(size, size, size);
-				col.gameObject.GetComponent<Jugador>().db.AniadirListaUsuario(col.gameObject.GetComponent<Jugador>().CodSer,"ANIADIDO");
-				//Debug.Log("Chocado con " + col.gameObject.GetComponent<Jugador>().db.GetDataLenght(col.gameObject.GetComponent<Jugador>().CodSer));
-			}
+			//if(col.gameObject.GetComponent<Jugador>() != null)
+			//{
+			//	col.gameObject.transform.localScale += new Vector3(size, size, size);
+			//	col.gameObject.GetComponent<Jugador>().db.AniadirListaUsuario(col.gameObject.GetComponent<Jugador>().CodSer,"ANIADIDO");
+			//	col.gameObject.GetComponent<Jugador>().HP = col.gameObject.GetComponent<Jugador>().db.GetDataLenght(col.gameObject.GetComponent<Jugador>().CodSer);
+			//	//Debug.Log("Chocado con " + col.gameObject.GetComponent<Jugador>().db.GetDataLenght(col.gameObject.GetComponent<Jugador>().CodSer));
+			//}
+			this.transform.localScale += new Vector3(-size, -size, -size);
 			db.BorrarListaUsuario(CodSer,"BORRADO");
 			HP = db.GetDataLenght(CodSer);
 			//Debug.Log("HP: "+HP);
+		}
+		if(this.gameObject.layer == 9 && col.gameObject.layer == 10
+			|| this.gameObject.layer == 11 && col.gameObject.layer == 9 
+			|| this.gameObject.layer == 10 && col.gameObject.layer == 11)
+		{
+			this.transform.localScale += new Vector3(size, size, size);
+			db.AniadirListaUsuario(CodSer,"ANIADIDO");
+			HP = db.GetDataLenght(CodSer);
 		}
     }
 	public void activarJugador(bool activar)

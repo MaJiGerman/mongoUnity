@@ -9,24 +9,48 @@ public class randomMovement : MonoBehaviour
     public float minSpeed;  // minimum range of speed to move
     public float maxSpeed;  // maximum range of speed to move
     float speed;     // speed is a constantly changing value from the random range of minSpeed and maxSpeed 
-    public List<string> collisionTags;             //  What are the GO tags that will act as colliders that trigger a
-    float step = Mathf.PI / 120;
-    float timeVar = 0;
-    float rotationRange = 120;                  //  How far should the object rotate to find a new direction?
-    float baseDirection = 0;
-    bool colisionado = false;
+    public List<string> collisionTags;             //  What are the GO tags that will act as colliders that trigger
     Vector3 randomDirection;                // Random, constantly changing direction from a narrow range for natural motion
-    float elapsed = 0.0f; 
-    public float reWanderTime = 1.0f;
+    float step;
+    float timeVar;
+    float rotationRange;                  //  How far should the object rotate to find a new direction?
+    float baseDirection;
+    bool colisionado; 
+    float elapsed; 
+    float elapsedRecalculate; 
+    public float reWanderTime;
+    public float reCalculateTime;
+
+    void Start()
+    {
+        minSpeed = 0.75f;
+        maxSpeed = 1.5f;
+        step = Mathf.PI / 120;
+        timeVar = 0;
+        rotationRange = 120;
+        baseDirection = 0;
+        colisionado = false;
+        elapsed = 0.0f;
+        elapsedRecalculate = 0.0f;
+        reWanderTime = 0.7f;
+        reCalculateTime = 0.1f;
+    }
     void Update()
     {
         if(colisionado == false)
-        {   
-            randomDirection = new Vector3(0, Mathf.Sin(timeVar) * (rotationRange / 2) + baseDirection, 0); //   Moving at random angles 
-            timeVar += Random.Range(0,2*step);
-            speed = Random.Range(minSpeed, maxSpeed);              //      Change this range of numbers to change speed
-            GetComponent<Rigidbody>().AddForce(transform.forward * speed);
-            transform.Rotate(randomDirection * Time.deltaTime);
+        {       
+            elapsedRecalculate += Time.deltaTime;
+            if (elapsedRecalculate >= reCalculateTime) 
+            {
+                //Debug.Log("BOP");
+                randomDirection = new Vector3(0, Mathf.Sin(timeVar) * (rotationRange / 2) + baseDirection, 0); //   Moving at random angles 
+                timeVar += Random.Range(0,2*step);
+                speed = Random.Range(minSpeed, maxSpeed);              //      Change this range of numbers to change speed
+                //GetComponent<Rigidbody>().AddForce(transform.forward * speed);
+                transform.Rotate(randomDirection * Time.deltaTime);
+
+                elapsedRecalculate = 0.0f;
+            }
         }else
         {
             elapsed += Time.deltaTime;
