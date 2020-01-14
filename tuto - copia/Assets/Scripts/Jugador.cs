@@ -88,17 +88,9 @@ public class Jugador : MonoBehaviour
 			|| this.gameObject.layer == 9 && col.gameObject.layer == 11 
 			|| this.gameObject.layer == 11 && col.gameObject.layer == 10)
 		{
-			//if(col.gameObject.GetComponent<Jugador>() != null)
-			//{
-			//	col.gameObject.transform.localScale += new Vector3(size, size, size);
-			//	col.gameObject.GetComponent<Jugador>().db.AniadirListaUsuario(col.gameObject.GetComponent<Jugador>().CodSer,"ANIADIDO");
-			//	col.gameObject.GetComponent<Jugador>().HP = col.gameObject.GetComponent<Jugador>().db.GetDataLenght(col.gameObject.GetComponent<Jugador>().CodSer);
-			//	//Debug.Log("Chocado con " + col.gameObject.GetComponent<Jugador>().db.GetDataLenght(col.gameObject.GetComponent<Jugador>().CodSer));
-			//}
 			this.transform.localScale += new Vector3(-size, -size, -size);
 			db.BorrarListaUsuario(CodSer,"BORRADO");
 			HP = db.GetDataLenght(CodSer);
-			//Debug.Log("HP: "+HP);
 		}
 		if(this.gameObject.layer == 9 && col.gameObject.layer == 10
 			|| this.gameObject.layer == 11 && col.gameObject.layer == 9 

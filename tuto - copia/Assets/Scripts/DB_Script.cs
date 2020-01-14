@@ -68,7 +68,7 @@ public class DB_Script
 	{
 		UserData u = new UserData();
 
-		var result2 = await usuarios.FindOneAndUpdateAsync(
+		var result2 =   await usuarios.FindOneAndUpdateAsync(
 						Builders<Model>.Filter.Eq("nombre", inputNombre),
 						Builders<Model>.Update.Set("estado", newEstado)
 											.Push("datos", u)
@@ -80,7 +80,7 @@ public class DB_Script
 
 	public async void ActualizarColorUsuario(string inputNombre, string newColor)
 	{
-		var result2 = await usuarios.FindOneAndUpdateAsync(
+		var result2 =   await usuarios.FindOneAndUpdateAsync(
 						Builders<Model>.Filter.Eq("nombre", inputNombre),
 						Builders<Model>.Update.Set("color", newColor)
 		);
@@ -91,34 +91,54 @@ public class DB_Script
 	{
 		UserData u = new UserData();
 
-		var result2 = await usuarios.FindOneAndUpdateAsync(
+		int timeSec = System.DateTime.Now.Second;
+        int timeMSec = System.DateTime.Now.Millisecond;
+
+		var result2 =   await usuarios.FindOneAndUpdateAsync(
 						Builders<Model>.Filter.Eq("nombre", inputNombre),
 						Builders<Model>.Update.Set("estado", newEstado)
 											.Push("datos", u)
 		);
-		this.GetDataLenght(inputNombre);
+
+		int endtimeSec = System.DateTime.Now.Second;
+        int endtimeMSec = System.DateTime.Now.Millisecond;
+        Debug.Log("ANIADIR " +inputNombre+ ". TIEMPO: " +((endtimeSec - timeSec)*1000 + (endtimeMSec - timeMSec )) + " ms");
 		//Debug.Log("Elemento Anadido");
 	}
 	
 	public async void BorrarListaUsuario(string inputNombre, string newEstado)
 	{
+		int timeSec = System.DateTime.Now.Second;
+        int timeMSec = System.DateTime.Now.Millisecond;
+
 		var result2 = await usuarios.FindOneAndUpdateAsync(
                       Builders<Model>.Filter.Eq("nombre", inputNombre),
                       Builders<Model>.Update.Set("estado", newEstado)
 											.PopLast("datos")
-                      );	
+                      );
+
+		int endtimeSec = System.DateTime.Now.Second;
+        int endtimeMSec = System.DateTime.Now.Millisecond;
+        Debug.Log("BORRAR " +inputNombre+ ". TIEMPO: " +((endtimeSec - timeSec)*1000 + (endtimeMSec - timeMSec ))+ " ms");
 		//Debug.Log("Elemento Eliminado");
 	}
 
 	public async void DeleteUsuario(string inputNombre)
 	{
-		var result = await usuarios.FindOneAndDeleteAsync(
+		int timeSec = System.DateTime.Now.Second;
+        int timeMSec = System.DateTime.Now.Millisecond;
+
+		var result =     await usuarios.FindOneAndDeleteAsync(
                          Builders<Model>.Filter.Eq("nombre", inputNombre),
                          new FindOneAndDeleteOptions<Model>
                          {
                          	Sort = Builders<Model>.Sort.Descending("nombre")
                          }
                          );
+		int endtimeSec = System.DateTime.Now.Second;
+        int endtimeMSec = System.DateTime.Now.Millisecond;
+        Debug.Log("ELIMINAR USUARIO" +inputNombre+ ". TIEMPO: " +((endtimeSec - timeSec)*1000 + (endtimeMSec - timeMSec ))+ " ms");
+		
 		//Debug.Log("Usuario Eliminado");
 	}
 
