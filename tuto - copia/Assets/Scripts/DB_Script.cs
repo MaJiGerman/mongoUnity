@@ -29,10 +29,10 @@ public class DB_Script
 	}
 
 	#region Insert
-	public bool InsertarUsuario(string usuario)
+	public bool InsertarUsuario(string inputNombre)
 	{
 		Model newUser = new Model();
-		newUser.nombre = usuario;
+		newUser.nombre = inputNombre;
 		newUser.estado = "CREADO";
 		newUser.color = "BLANCO";
 
@@ -73,7 +73,7 @@ public class DB_Script
 						Builders<Model>.Update.Set("estado", newEstado)
 											.Push("datos", u)
 		);
-		this.GetDataLenght(inputNombre);
+		this.ObtenerLongitudLista(inputNombre);
 		//Debug.Log("Elemento Anadido");
 	}
 	
@@ -123,7 +123,7 @@ public class DB_Script
 		//Debug.Log("Elemento Eliminado");
 	}
 
-	public async void DeleteUsuario(string inputNombre)
+	public async void BorrarUsuario(string inputNombre)
 	{
 		int timeSec = System.DateTime.Now.Second;
         int timeMSec = System.DateTime.Now.Millisecond;
@@ -142,7 +142,7 @@ public class DB_Script
 		//Debug.Log("Usuario Eliminado");
 	}
 
-	public int GetDataLenght(string inputNombre)
+	public int ObtenerLongitudLista(string inputNombre)
 	{
 		
 		List<UserData> aux;

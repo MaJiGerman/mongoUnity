@@ -8,16 +8,16 @@ public class randomMovement : MonoBehaviour
     //public AudioClip AlienScream;
     public float minSpeed;  // minimum range of speed to move
     public float maxSpeed;  // maximum range of speed to move
-    float speed;     // speed is a constantly changing value from the random range of minSpeed and maxSpeed 
+    private float speed;     // speed is a constantly changing value from the random range of minSpeed and maxSpeed 
     public List<string> collisionTags;             //  What are the GO tags that will act as colliders that trigger
-    Vector3 randomDirection;                // Random, constantly changing direction from a narrow range for natural motion
-    float step;
-    float timeVar;
-    float rotationRange;                  //  How far should the object rotate to find a new direction?
-    float baseDirection;
-    bool colisionado; 
-    float elapsed; 
-    float elapsedRecalculate; 
+    private Vector3 randomDirection;                // Random, constantly changing direction from a narrow range for natural motion
+    private float step;
+    private float timeVar;
+    private float rotationRange;                  //  How far should the object rotate to find a new direction?
+    private float baseDirection;
+    private bool colisionado; 
+    private float elapsed; 
+    private float elapsedRecalculate; 
     public float reWanderTime;
     public float reCalculateTime;
 

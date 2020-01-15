@@ -36,7 +36,7 @@ public class Jugador : MonoBehaviour
 		{
 			db.AniadirListaUsuario(CodSer, "CREADO");
 		}
-		//Debug.Log(db.GetDataLenght(CodSer));
+		//Debug.Log(db.ObtenerLongitudLista(CodSer));
 	}
 	
 	// Update is called once per frame
@@ -56,18 +56,18 @@ public class Jugador : MonoBehaviour
         {
 			//Debug.Log("Aniadir elemento a lista Usuario");
 			db.ActualizarUsuario(CodSer,"ANADIDO");
-			HP = db.GetDataLenght(CodSer);
+			HP = db.ObtenerLongitudLista(CodSer);
         }
 		if (activo && Input.GetKeyUp(KeyCode.G))
         {
 			//Debug.Log("Borrar elemento a lista Usuario");
 			db.BorrarListaUsuario(CodSer,"BORRADO");
-			HP = db.GetDataLenght(CodSer);
+			HP = db.ObtenerLongitudLista(CodSer);
         }
 		if (activo && Input.GetKeyUp(KeyCode.D))
         {
 			//Debug.Log("Borrando Usuario");
-			db.DeleteUsuario(CodSer);
+			db.BorrarUsuario(CodSer);
         }
 		if (activo && Input.GetKeyUp("space"))
         {
@@ -78,7 +78,7 @@ public class Jugador : MonoBehaviour
 		if (HP<=0)
 		{
 			//Debug.Log("AUTODESTROYENDOSE");
-			db.DeleteUsuario(CodSer);
+			db.BorrarUsuario(CodSer);
 			Destroy(gameObject);
 		}
 	}
@@ -90,7 +90,7 @@ public class Jugador : MonoBehaviour
 		{
 			this.transform.localScale += new Vector3(-size, -size, -size);
 			db.BorrarListaUsuario(CodSer,"BORRADO");
-			HP = db.GetDataLenght(CodSer);
+			HP = db.ObtenerLongitudLista(CodSer);
 		}
 		if(this.gameObject.layer == 9 && col.gameObject.layer == 10
 			|| this.gameObject.layer == 11 && col.gameObject.layer == 9 
@@ -98,7 +98,7 @@ public class Jugador : MonoBehaviour
 		{
 			this.transform.localScale += new Vector3(size, size, size);
 			db.AniadirListaUsuario(CodSer,"ANIADIDO");
-			HP = db.GetDataLenght(CodSer);
+			HP = db.ObtenerLongitudLista(CodSer);
 		}
     }
 	public void activarJugador(bool activar)
