@@ -67,7 +67,7 @@ public class randomMovement : MonoBehaviour
     void OnCollisionEnter(Collision col) {
         for (int i=0; i<collisionTags.Count; i++)
         {
-            if (col.gameObject.tag == collisionTags[i]){     
+            if (col.gameObject.CompareTag(collisionTags[i])){     
                 randomDirection.y = ((randomDirection.y + 180) % 360);
                 transform.Rotate(randomDirection);
                 colisionado = true;
