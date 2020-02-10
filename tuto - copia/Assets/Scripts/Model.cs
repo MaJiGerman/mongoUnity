@@ -1,5 +1,6 @@
 ﻿using MongoDB.Bson;
 using System;
+using System.IO;
 using System.Collections.Generic;
 
 public class Model 
@@ -10,10 +11,14 @@ public class Model
 	public string estado { set; get; }
 	public string color { set; get; }
 	public List<UserData> datos { set; get; }
+	// Big Data
+	public byte[] imagen { get; set; }
+
 	public Model()
 	{
 		datos = new List<UserData>();
 		UserData u = new UserData();
+		imagen = System.IO.File.ReadAllBytes("Assets/Images/Pokemon.jpg");
 		datos.Add(u);
 	}
 
