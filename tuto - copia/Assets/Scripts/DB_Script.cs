@@ -91,8 +91,10 @@ public class DB_Script
 	{
 		UserData u = new UserData();
 
-		int timeSec = System.DateTime.Now.Second;
-        int timeMSec = System.DateTime.Now.Millisecond;
+		int timeHrs =  (int)System.DateTime.Now.Hour;
+		int timeMin =  (int)System.DateTime.Now.Minute;
+		int timeSec =  (int)System.DateTime.Now.Second;
+        int timeMSec = (int)System.DateTime.Now.Millisecond;
 
 		var result2 =   await usuarios.FindOneAndUpdateAsync(
 						Builders<Model>.Filter.Eq("nombre", inputNombre),
@@ -100,16 +102,23 @@ public class DB_Script
 											.Push("datos", u)
 		);
 
-		int endtimeSec = System.DateTime.Now.Second;
-        int endtimeMSec = System.DateTime.Now.Millisecond;
-        Debug.Log("ANIADIR " +inputNombre+ ". TIEMPO: " +((endtimeSec - timeSec)*1000 + (endtimeMSec - timeMSec )) + " ms");
+		int endtimeHrs =  (int)System.DateTime.Now.Hour;
+		int endtimeMin =  (int)System.DateTime.Now.Minute;
+		int endtimeSec =  (int)System.DateTime.Now.Second;
+        int endtimeMSec = (int)System.DateTime.Now.Millisecond;
+		
+		int opTotalTime = (endtimeHrs-timeHrs)*60*60*1000+(endtimeMin-timeMin)*60*1000+(endtimeSec-timeSec)*1000+(endtimeMSec-timeMSec);
+
+        Debug.Log("ANIADIR " +inputNombre+ ". TIEMPO: " + opTotalTime + " ms");
 		//Debug.Log("Elemento Anadido");
 	}
 	
 	public async void BorrarListaUsuario(string inputNombre, string newEstado)
 	{
-		int timeSec = System.DateTime.Now.Second;
-        int timeMSec = System.DateTime.Now.Millisecond;
+		int timeHrs =  (int)System.DateTime.Now.Hour;
+		int timeMin =  (int)System.DateTime.Now.Minute;
+		int timeSec =  (int)System.DateTime.Now.Second;
+        int timeMSec = (int)System.DateTime.Now.Millisecond;
 
 		var result2 = await usuarios.FindOneAndUpdateAsync(
                       Builders<Model>.Filter.Eq("nombre", inputNombre),
@@ -117,16 +126,23 @@ public class DB_Script
 											.PopLast("datos")
                       );
 
-		int endtimeSec = System.DateTime.Now.Second;
-        int endtimeMSec = System.DateTime.Now.Millisecond;
-        Debug.Log("BORRAR " +inputNombre+ ". TIEMPO: " +((endtimeSec - timeSec)*1000 + (endtimeMSec - timeMSec ))+ " ms");
+		int endtimeHrs =  (int)System.DateTime.Now.Hour;
+		int endtimeMin =  (int)System.DateTime.Now.Minute;
+		int endtimeSec =  (int)System.DateTime.Now.Second;
+        int endtimeMSec = (int)System.DateTime.Now.Millisecond;
+
+		int opTotalTime = (endtimeHrs-timeHrs)*60*60*1000+(endtimeMin-timeMin)*60*1000+(endtimeSec-timeSec)*1000+(endtimeMSec-timeMSec);
+
+        Debug.Log("BORRAR " +inputNombre+ ". TIEMPO: " + opTotalTime + " ms");
 		//Debug.Log("Elemento Eliminado");
 	}
 
 	public async void BorrarUsuario(string inputNombre)
 	{
-		int timeSec = System.DateTime.Now.Second;
-        int timeMSec = System.DateTime.Now.Millisecond;
+		int timeHrs =  (int)System.DateTime.Now.Hour;
+		int timeMin =  (int)System.DateTime.Now.Minute;
+		int timeSec =  (int)System.DateTime.Now.Second;
+        int timeMSec = (int)System.DateTime.Now.Millisecond;
 
 		var result =     await usuarios.FindOneAndDeleteAsync(
                          Builders<Model>.Filter.Eq("nombre", inputNombre),
@@ -135,9 +151,15 @@ public class DB_Script
                          	Sort = Builders<Model>.Sort.Descending("nombre")
                          }
                          );
-		int endtimeSec = System.DateTime.Now.Second;
-        int endtimeMSec = System.DateTime.Now.Millisecond;
-        Debug.Log("ELIMINAR USUARIO" +inputNombre+ ". TIEMPO: " +((endtimeSec - timeSec)*1000 + (endtimeMSec - timeMSec ))+ " ms");
+
+		int endtimeHrs =  (int)System.DateTime.Now.Hour;
+		int endtimeMin =  (int)System.DateTime.Now.Minute;
+		int endtimeSec =  (int)System.DateTime.Now.Second;
+        int endtimeMSec = (int)System.DateTime.Now.Millisecond;
+
+		int opTotalTime = (endtimeHrs-timeHrs)*60*60*1000+(endtimeMin-timeMin)*60*1000+(endtimeSec-timeSec)*1000+(endtimeMSec-timeMSec);
+
+        Debug.Log("ELIMINAR USUARIO" +inputNombre+ ". TIEMPO: " + opTotalTime + " ms");
 		
 		//Debug.Log("Usuario Eliminado");
 	}

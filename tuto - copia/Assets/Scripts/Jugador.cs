@@ -11,6 +11,8 @@ public class Jugador : MonoBehaviour
 	public bool activo;
 	private int HP;
 	private float size;
+	private float OnTime;
+
 
 	// Use this for initialization
 	void Start () 
@@ -22,6 +24,7 @@ public class Jugador : MonoBehaviour
 		activo = false;
 		HP = 3;
 		size = 0.05f;
+		OnTime = 0.0f;
 		//Debug.Log("CODSER: "+CodSer+" esta ahora activo");
 
 		db = new DB_Script();
@@ -35,11 +38,14 @@ public class Jugador : MonoBehaviour
 			db.AniadirListaUsuario(CodSer, "CREADO");
 		}
 		//Debug.Log(db.ObtenerLongitudLista(CodSer));
+		string dateToday = System.DateTime.Now.ToString("yyyy/MM/dd HH:mm:ss");
+		Debug.Log("FECHA "+dateToday);
 	}
 	
 	// Update is called once per frame
 	void Update () 
 	{
+		OnTime += Time.deltaTime*1000;
 		if (activo && Input.GetKeyUp(KeyCode.A))
         {
 			//Debug.Log("Creando Nuevo Usuario");
@@ -76,6 +82,7 @@ public class Jugador : MonoBehaviour
 	}
 	void OnCollisionEnter(Collision col)
     {
+		Debug.Log("ENCENDIDO: "+OnTime);
 		if(true){ //si existe la instancia
 			if(this.gameObject.layer == 10 && col.gameObject.layer == 9
 				|| this.gameObject.layer == 9 && col.gameObject.layer == 11 
