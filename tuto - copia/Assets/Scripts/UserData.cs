@@ -31,4 +31,15 @@ public class UserData
 		aux += "direccion: " + direccion + Environment.NewLine;
 		return aux;
 	}
+	
+	public float getSize()
+	{
+		float size=0;
+		size += nombre.Length * sizeof(Char);
+		size += apellido.Length * sizeof(Char);
+		size += direccion.Length * sizeof(Char);
+
+		return size;
+	}
 }
+

@@ -1,2 +1,0 @@
--r:MongoDB.Driver.dll
--r:MongoDB.Bson.dll

@@ -2,6 +2,7 @@
 using MongoDB.Driver;
 using MongoDB.Driver.Linq;
 using System.Collections.Generic;
+
 public class DB_Script 
 {
 	//private const string MONGO_URI="mongodb+srv://user_pruebas:1234@cluster0-zcbg7.mongodb.net/test?w=majority";
@@ -28,7 +29,6 @@ public class DB_Script
 		database = null;
 	}
 
-	#region Insert
 	public bool InsertarUsuario(string inputNombre)
 	{
 		Model newUser = new Model();
@@ -40,9 +40,8 @@ public class DB_Script
 		//Debug.Log("Nuevo Usuario Creado");
 		return true;
 	}
-	#endregion
 
-	#region Fetch
+
 	public List<Model> BuscarUsuario(string inputNombre)
 	{
 		List<Model> retunArray = new List<Model>();
@@ -101,7 +100,6 @@ public class DB_Script
 						Builders<Model>.Update.Set("estado", newEstado)
 											.Push("datos", u)
 		);
-
 		int endtimeHrs =  (int)System.DateTime.Now.Hour;
 		int endtimeMin =  (int)System.DateTime.Now.Minute;
 		int endtimeSec =  (int)System.DateTime.Now.Second;
@@ -109,7 +107,7 @@ public class DB_Script
 		
 		int opTotalTime = (endtimeHrs-timeHrs)*60*60*1000+(endtimeMin-timeMin)*60*1000+(endtimeSec-timeSec)*1000+(endtimeMSec-timeMSec);
 
-        Debug.Log("ANIADIR " +inputNombre+ ". TIEMPO: " + opTotalTime + " ms");
+        Debug.Log("ANIADIR " +inputNombre+ ". TIEMPO: " + opTotalTime + " ms. TAMAÑO "+ result2.getSize() +" bytes");
 		//Debug.Log("Elemento Anadido");
 	}
 	
@@ -133,7 +131,7 @@ public class DB_Script
 
 		int opTotalTime = (endtimeHrs-timeHrs)*60*60*1000+(endtimeMin-timeMin)*60*1000+(endtimeSec-timeSec)*1000+(endtimeMSec-timeMSec);
 
-        Debug.Log("BORRAR " +inputNombre+ ". TIEMPO: " + opTotalTime + " ms");
+        Debug.Log("BORRAR " +inputNombre+ ". TIEMPO: " + opTotalTime + " ms. TAMAÑO "+ result2.getSize() + " bytes");
 		//Debug.Log("Elemento Eliminado");
 	}
 
@@ -160,7 +158,6 @@ public class DB_Script
 		int opTotalTime = (endtimeHrs-timeHrs)*60*60*1000+(endtimeMin-timeMin)*60*1000+(endtimeSec-timeSec)*1000+(endtimeMSec-timeMSec);
 
         Debug.Log("ELIMINAR USUARIO" +inputNombre+ ". TIEMPO: " + opTotalTime + " ms");
-		
 		//Debug.Log("Usuario Eliminado");
 	}
 
@@ -182,5 +179,5 @@ public class DB_Script
 
 		return tamano;
 	}
-	#endregion
+
 }

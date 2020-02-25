@@ -13,7 +13,6 @@ public class Jugador : MonoBehaviour
 	private float size;
 	private float OnTime;
 
-
 	// Use this for initialization
 	void Start () 
 	{

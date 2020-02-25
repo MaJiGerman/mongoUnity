@@ -18,8 +18,9 @@ public class Model
 	{
 		datos = new List<UserData>();
 		UserData u = new UserData();
-		imagen = System.IO.File.ReadAllBytes("Assets/Images/Pokemon.jpg");
 		datos.Add(u);
+		
+		imagen = System.IO.File.ReadAllBytes("Assets/Images/Pokemon.jpg");
 	}
 
 	public override string ToString(){
@@ -39,5 +40,22 @@ public class Model
 		}
 		
 		return aux;
+	}
+	public float getSize()
+	{
+		float size=0;
+		if(datos != null)
+		{
+			foreach(UserData d in datos)
+			{
+				size += d.getSize();
+			}
+		}
+		size += nombre.Length * sizeof(Char);
+		size += estado.Length * sizeof(Char);
+		size += color.Length * sizeof(Char);
+
+		size += imagen.Length;
+		return size;
 	}
 }
