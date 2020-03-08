@@ -11,19 +11,17 @@ public class Jugador : MonoBehaviour
 	public bool activo;
 	private int HP;
 	private float size;
-	private float OnTime;
 
 	// Use this for initialization
 	void Start () 
 	{
 		color = LayerMask.LayerToName(this.gameObject.layer);
 		System.Random random = new System.Random();
-		int randomNumber = random.Next(0, 2048);
+		int randomNumber = random.Next(0, 4096);
 		CodSer = "UNITY_"+randomNumber;
 		activo = false;
 		HP = 3;
 		size = 0.05f;
-		OnTime = 0.0f;
 		//Debug.Log("CODSER: "+CodSer+" esta ahora activo");
 
 		db = new DB_Script();
@@ -36,7 +34,9 @@ public class Jugador : MonoBehaviour
 		{
 			db.AniadirListaUsuario(CodSer, "CREADO");
 		}
-		//Debug.Log(db.ObtenerLongitudLista(CodSer));
+
+		db.AniadirImagenUsuario(CodSer);
+
 		string dateToday = System.DateTime.Now.ToString("yyyy/MM/dd HH:mm:ss");
 		Debug.Log("FECHA "+dateToday);
 	}
@@ -44,7 +44,7 @@ public class Jugador : MonoBehaviour
 	// Update is called once per frame
 	void Update () 
 	{
-		OnTime += Time.deltaTime*1000;
+
 		if (activo && Input.GetKeyUp(KeyCode.A))
         {
 			//Debug.Log("Creando Nuevo Usuario");
@@ -81,7 +81,12 @@ public class Jugador : MonoBehaviour
 	}
 	void OnCollisionEnter(Collision col)
     {
-		Debug.Log("ENCENDIDO: "+OnTime);
+		int timeHrs =  (int)System.DateTime.Now.Hour;
+		int timeMin =  (int)System.DateTime.Now.Minute;
+		int timeSec =  (int)System.DateTime.Now.Second;
+        int timeMSec = (int)System.DateTime.Now.Millisecond;
+
+		Debug.Log("ENCENDIDO: "+timeHrs+" "+timeMin+" "+timeSec+" "+timeMSec);
 		if(true){ //si existe la instancia
 			if(this.gameObject.layer == 10 && col.gameObject.layer == 9
 				|| this.gameObject.layer == 9 && col.gameObject.layer == 11 

@@ -13,14 +13,14 @@ public class Model
 	public List<UserData> datos { set; get; }
 	// Big Data
 	public byte[] imagen { get; set; }
+	public byte[] imagen2 { get; set; }
+
 
 	public Model()
 	{
 		datos = new List<UserData>();
 		UserData u = new UserData();
 		datos.Add(u);
-		
-		imagen = System.IO.File.ReadAllBytes("Assets/Images/Pokemon.jpg");
 	}
 
 	public override string ToString(){
@@ -55,7 +55,12 @@ public class Model
 		size += estado.Length * sizeof(Char);
 		size += color.Length * sizeof(Char);
 
-		size += imagen.Length;
+		if (imagen!=null)
+			size += imagen.Length;
+
+		if (imagen2!=null)
+			size += imagen2.Length;
+
 		return size;
 	}
 }

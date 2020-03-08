@@ -2,14 +2,16 @@
 using MongoDB.Driver;
 using MongoDB.Driver.Linq;
 using System.Collections.Generic;
+using System.IO;
+using System.Drawing; //para Image
 
 public class DB_Script 
 {
-	//private const string MONGO_URI="mongodb+srv://user_pruebas:1234@cluster0-zcbg7.mongodb.net/test?w=majority";
-	//private const string MONGO_URI="mongodb://user_pruebas:1234@cluster0-shard-00-00-zcbg7.mongodb.net:27017,cluster0-shard-00-01-zcbg7.mongodb.net:27017,cluster0-shard-00-02-zcbg7.mongodb.net:27017/test?ssl=true&replicaSet=Cluster0-shard-0";
+	//private const string MONGO_URI="mongodb://user_pruebas:1234@cluster0-shard-00-00-6zyhr.azure.mongodb.net:27017,cluster0-shard-00-01-6zyhr.azure.mongodb.net:27017,cluster0-shard-00-02-6zyhr.azure.mongodb.net:27017/test?ssl=true&replicaSet=Cluster0-shard-0&authSource=admin&retryWrites=true&w=majority";
 	private const string MONGO_URI="mongodb://user_pruebas:1234@cluster0-shard-00-00-zcbg7.mongodb.net:27017,cluster0-shard-00-01-zcbg7.mongodb.net:27017,cluster0-shard-00-02-zcbg7.mongodb.net:27017/test?ssl=true&replicaSet=Cluster0-shard-0&authSource=admin&retryWrites=true&w=majority";
+	//private const string MONGO_URI="mongodb://localhost:27017";
 	private const string DB_NAME="db_cloud";
-	private const string COLECTION_NAME="colection_cloud";
+	private const string COLECTION_NAME="colection_cloud_2";
 
 	private MongoClient client;
 	private IMongoDatabase database;
@@ -72,10 +74,34 @@ public class DB_Script
 						Builders<Model>.Update.Set("estado", newEstado)
 											.Push("datos", u)
 		);
-		this.ObtenerLongitudLista(inputNombre);
+		//this.ObtenerLongitudLista(inputNombre);
 		//Debug.Log("Elemento Anadido");
 	}
 	
+	public async void AniadirImagenUsuario(string inputNombre)
+	{
+		byte[] img = FileToByteArray("Assets/Images/Pokemon.png");
+		byte[] img2 = File.ReadAllBytes("Assets/Images/Poppy.png");
+
+		var result =    await usuarios.FindOneAndUpdateAsync(
+						Builders<Model>.Filter.Eq("nombre", inputNombre),
+						Builders<Model>.Update.Set("imagen", img).Set("imagen2", img2)
+		);
+	}
+
+	public byte[] FileToByteArray(string fileName)
+	{
+    byte[] fileData = null;
+
+    using (FileStream fs = File.OpenRead(fileName)) 
+    { 
+        using (BinaryReader binaryReader = new BinaryReader(fs))
+        {
+            fileData = binaryReader.ReadBytes((int)fs.Length); 
+        }
+    }
+    return fileData;
+	}	
 
 	public async void ActualizarColorUsuario(string inputNombre, string newColor)
 	{
